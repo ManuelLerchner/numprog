@@ -213,7 +213,6 @@ Es soll eine Interpolation gefunden werden die die gleichverteilten Punkte $P=[ 
 Hierbei ist $\omega = e^{\frac{2\pi i}{n}}$ die $n$-te Wurzel von $1$.
 
 $$
-
 \begin{aligned}
  \begin{bmatrix}
            c_{0} \\
@@ -221,7 +220,6 @@ $$
            \vdots \\
            c_{n-1} \\
          \end{bmatrix}
-
  =
  \frac{1}{n}
    \begin{bmatrix}
@@ -236,7 +234,6 @@ $$
            \vdots \\
            y_{n-1} \\
          \end{bmatrix}
-
 \end{aligned}
 $$
 
