@@ -31,16 +31,20 @@ $$
 Die Basisfunktionen für die Interpolation sind die Chebyshev Polynome. Diese sind definiert als:
 
 $$
-T_0(x) = 1 \\
-T_1(x) = x \\
-T_{k+1}(x) = 2x\cdot T_k(x) - T_{k-1}(x)\\
+\begin{aligned}
+T_0(x) &= 1 \\
+T_1(x) &= x \\
+T_{k+1}(x) &= 2x\cdot T_k(x) - T_{k-1}(x)\\
+\end{aligned}
 $$
 
 Damit lassen sich die dazu gehörigen Koeffizienten berechnen:
 
 $$
-a_0 = \frac{1}{2\pi}\int_{-1}^1 \frac{f(x)}{\sqrt{1-x^2}} dx \\
-a_k = \frac{2}{\pi}\int_{-1}^1 \frac{f(x)\cdot T_k(x)}{\sqrt{1-x^2}} dx \\
+\begin{aligned}
+a_0 &= \frac{1}{2\pi}\int_{-1}^1 \frac{f(x)}{\sqrt{1-x^2}} dx \\
+a_k &= \frac{2}{\pi}\int_{-1}^1 \frac{f(x)\cdot T_k(x)}{\sqrt{1-x^2}} dx \\
+\end{aligned}
 $$
 
 Die Interpolation ist dann gegeben durch:
@@ -79,7 +83,9 @@ Es gibt zwei verschidenen Anwendungen der Interpolation welche auftreten können
    - Hierbei ist $y_i'$ die Ableitung von $y_i$.
    - Diese Variante wird als _Hermit Interpolation_ bezeichnet.
 
-## Schema von Aitken und Neville
+## Algorithmen
+
+### Schema von Aitken und Neville
 
 Wenn man nicht an der expliziten Representation des Interpolationspolynoms interessiert ist, sonder nur den Funktionswert an einem festen $x$ Wert bestimmen möchte eignet sich das Schema von Aitken und Neville.
 
@@ -108,7 +114,7 @@ def neville(x, x_values, y_values):
 
 Diese Form der Interpolation eignet sich nur, wenn nur relative wenige Werte ausgewertet werden müssen. Ansonsten lohnt sich die bestimmung des expliziten Polynoms.
 
-## Newton Interpolation
+### Newton Interpolation
 
 Die Newton Interpolation ist eine spezielle Form der Lagrange Interpolation. Hierbei werden die Koeffizienten des Polynoms durch die Differenzenquotienten der Stützstellen bestimmt.
 
@@ -134,3 +140,52 @@ Der entstehende Fehler ist hierbei $\mathcal{O}(h^{n+1})$. Wo $h$ die Distanz zw
 Die Kondition der Polynomialen Interpolation ist besonders bei einer großen Anzahl von Stützstellen ($n>7$) ein Problem. Da das entstehende Polynom besonders an den Randstellen extrem oszilieren kann.
 
 # Polynom - Splines
+
+## Definition
+
+Anstatt alle Punkte durch ein gemeinsames Polynom zu interpolieren, wird der Bereich in mehrere Intervalle unterteilt und für jedes Intervall ein eigenes Polynom erstellt, welches dann an den Intervallgrenzen mit den anderen Polynomen "zusammengeklebt" wird.
+
+Ein Spline $s(x)$ von der Ordnung $m$ bzw. mit Grad $m-1$ ist eine Kette von Polynomen mit Grad $m-1$, welche jeweils zwischen zwei Stützstellen die Funktion interpolieren. Außerdem ist $s(x)$ auf dem gesamten Intervall jeweils $m-2$ mal stetig differenzierbar ist.
+
+Beispiel:
+
+- $m=1 \rightarrow$ Stückweise konstante Funktion, Treppenfunktion
+- $m=2 \rightarrow$ Stückweise lineare Funktion, stetig
+- $m=3 \rightarrow$ Stückweise quadratische Funktion, stetig und einmal stetig differenzierbar
+
+## Kubische Splines
+
+Für den Fall $m=4$ erhält man kubische Splines. Diese eignen sich gut für die Interpolation von Datenpunkten. Da sie einfach zu berechnen sind und eine gute Approximation liefern.
+
+Durch geeignete herleitung, erhält man für jedes Teilintervall folgende Basisfunktionen:
+
+$$
+\begin{aligned}
+\alpha_1(t) &= 1 - 3t^2 + 2t^3 \\
+\alpha_2(t) &= 3t^2 - 2t^3 \\
+\alpha_3(t) &= t - 2t^2 + t^3 \\
+\alpha_4(t) &= t^3 - t^2
+\end{aligned}
+$$
+
+Damit erhält man für die Funktion $s(x)$ folgende Form:
+
+$$
+\begin{aligned}
+s(x) &= p*i\left(\frac{x-x_i}{h_i}\right) := p_i(t)\\
+&= y_i \cdot \alpha_1(t) + y*{i+1} \cdot \alpha*2(t) + h_i \cdot y_1' \cdot \alpha_3(t) + h_i \cdot y*{i+1}' \cdot \alpha_4(t)
+\end{aligned}
+$$
+
+Damit kann der Fehler durch $|f(x)-s(x)| = \mathcal{O}(h^4)$ abgeschätzt werden. Dies ist wesentlich besser als bei der Interpolation durch ein einziges Polynom.
+
+Diese Formel garantieren, dass:
+
+$$
+s(x_i) = y_i \quad \forall i\\
+s(x_{i+1}) = y_{i+1} \quad \forall i\\
+s'(x_i) = y'_i \quad \forall i\\
+s'(x_{i+1}) = y'_{i+1} \quad \forall i
+$$
+
+# Trigonometrische Interpolation
