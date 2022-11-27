@@ -7,8 +7,8 @@
 Bei Fixed-Point wird die Zahl in eine ganze Zahl und eine Bruchzahl aufgeteilt. Diese werden jeweils "normal" kodiert.
 
 - Nachteile:
-    - Schneller Overflow, da nur kleine Zahlen dargestellt werden können
-    - Konstanter Abstand zwischen zwei Zahlen. Oft nicht benötigt.
+  - Schneller Overflow, da nur kleine Zahlen dargestellt werden können
+  - Konstanter Abstand zwischen zwei Zahlen. Oft nicht benötigt.
 
 ## Floating-Point
 
@@ -25,12 +25,13 @@ Eine Floating-Point Zahl wird in Mantisse und Exponent aufgeteilt. Zusammen mit 
 - Wobei gilt:
 
 - $B$ Basis
-    - $t$ Anzahl der Bits
-    - $\alpha$ kleinster möglicher Exponent
-    - $\beta$ größter möglicher Exponent
+
+  - $t$ Anzahl der Bits
+  - $\alpha$ kleinster möglicher Exponent
+  - $\beta$ größter möglicher Exponent
 
 - Vorteile:
-    - Großer Wertebereich, da variable Abstände zwischen zwei Zahlen
+  - Großer Wertebereich, da variable Abstände zwischen zwei Zahlen
 
 ### Kleinste bzw. größte Zahl
 
@@ -42,10 +43,10 @@ In einem solchen System ist:
 Beispiel:
 
 - Mit $B=10$ und $t=4$ und $\alpha=-2$ und $\beta=1$ ergibt sich:
-    - $\sigma = 10^{4-1} \cdot 10^{-2} = 10$
-    - $\lambda = (10^{4}-1) \cdot 10^{1} = 99990$
+  - $\sigma = 10^{4-1} \cdot 10^{-2} = 10$
+  - $\lambda = (10^{4}-1) \cdot 10^{1} = 99990$
 
-### Formel zur Berechnung des maximalen relativen Abstands zwei Float-Zahlen
+### Maximalen relativen Abstand zweier Float-Zahlen
 
 Die Resolution einer Float-Zahl ist der maximale relative Abstand zu einer anderen Float-Zahl. Sie berechnet sich wie folgt:
 
@@ -70,28 +71,27 @@ Es gilt:
 ### Rundungsmodi
 
 1. Abrunden:
-      - $rd_-(x) = f_l(x)$ wobei $f_l(x)$ die nächstkleinere Float-Zahl ist.
+   - $rd_-(x) = f_l(x)$ wobei $f_l(x)$ die nächstkleinere Float-Zahl ist.
 2. Aufrunden:
-      - $rd_+(x) = f_r(x)$ wobei $f_r(x)$ die nächstgrößere Float-Zahl ist.
-3. Abschneiden:
+   - $rd_+(x) = f_r(x)$ wobei $f_r(x)$ die nächstgrößere Float-Zahl ist.
+3. Abschneiden (Runden in Richtung 0):
 
-- Rundet immer in Richtung 0.
-     - $rd_0(x) = f_-(x)$ wenn $x \geq 0$ und $f_+(x)$ wenn $x \leq 0$.
+   - $rd_0(x) = f_-(x)$ wenn $x \geq 0$ und $f_+(x)$ wenn $x \leq 0$.
 
 4. Korrektes Runden:
-      - Rundet immer zur nächstgelegenen Float-Zahl.
-      - Falls die nächstgelegene Zahl gleich weit entfernt ist, wird die gerade Zahl gewählt.
+   - Rundet immer zur nächstgelegenen Float-Zahl.
+   - Falls die nächstgelegene Zahl gleich weit entfernt ist, wird die gerade Zahl gewählt.
 
 ### Rundungsfehler
 
 Durch jeden Rundungsschritt entsteht zwangsläufig ein Rundungsfehler.
 
 - Absolute Rundungsfehler:
-    - $rd(x) - x$
+  - $rd(x) - x$
 - Relative Rundungsfehler:
-    - $\epsilon = \frac{rd(x) - x}{x}$
-    - Dieser Rundungsfehler kann bei direktem Runden mit: $|\epsilon| \leq \varrho$ abgeschätzt werden.
-    - Beim korekten Runden gilt: $|\epsilon| \leq \frac{1}{2} \cdot \varrho$
+  - $\epsilon = \frac{rd(x) - x}{x}$
+  - Dieser Rundungsfehler kann bei direktem Runden mit: $|\epsilon| \leq \varrho$ abgeschätzt werden.
+  - Beim korekten Runden gilt: $|\epsilon| \leq \frac{1}{2} \cdot \varrho$
 
 Durch diese Konstruktion des relativen Rundungsfehlers, gilt:
 
@@ -107,14 +107,12 @@ Es gibt zwei Möglichkeiten, die entstehenden Rundungsfehler zu modellieren:
 1. Als Funktion des exakten Ergebnisses: (Starke Hypothese)
 
 - $a \ \dot{*} \ b = f(a*b) = (a*b) \cdot \epsilon(a,b)$
-     - Diese Variante wird von fast allen Systemen unterstützt.
+  - Diese Variante wird von fast allen Systemen unterstützt.
 
 2. Als Funktion der Rundungsfehler der Operanden: (Schwache Hypothese)
-      - $a \ \dot{*} \ b = f(a,b) = (a \cdot (1+ \epsilon_1)) * (b \cdot (1+ \epsilon_2))$
+   - $a \ \dot{*} \ b = f(a,b) = (a \cdot (1+ \epsilon_1)) * (b \cdot (1+ \epsilon_2))$
 
 Wobei alle $\epsilon$-Werte betragsmäßig durch die Maschinengenauigkeit $\bar{\epsilon}$ begrenzt sind. Diese entspricht je nach verwendetem Rundungsmodus entweder $\varrho$ oder $\frac{1}{2} \cdot \varrho$.
-
----
 
 **Achtung:**
 
@@ -128,7 +126,7 @@ Außerdem findet Absorption statt. Das bedeutet, dass z.B. bei der Subtraktion v
 
 Es gibt die Möglichkeit der Vorwärts- und Rückwärtsfehleranalyse.
 
-### Vorwärts Fehleranalyse
+## Vorwärts Fehleranalyse
 
 Hierbei wird das Ergebnis als Funktion des exakten Ergebnisses modelliert.
 
@@ -137,7 +135,7 @@ Hierbei wird das Ergebnis als Funktion des exakten Ergebnisses modelliert.
 
 Diese Modellierung ist einfach, jedoch in der Praxis nur schwer berechenbar, da die Fehler korreliert sind.
 
-### Rückwärts Fehleranalyse
+## Rückwärts Fehleranalyse
 
 Hierbei wird das Ergebnis als Funktion der Rundungsfehler der Operanden modelliert.
 
@@ -183,9 +181,7 @@ Beispiele für gute und schlechte Kondition:
 - Berechnung von Nullstellen von Polynomen
     - Berechnung von Schnittpunkten zweier fast paralleler Geraden
 
-## Anwendung der Kondition bei konkreten Algorithmen
-
-### Akzeptable Ergebnisse
+## Akzeptable Ergebnisse
 
 Ein numerisch akzeptables Ergebnis ist dann gegeben, wenn das berechnete
 Ergebnis, auch als exaktes Ergebnis von nur leicht gestörten Eingabedaten
@@ -193,7 +189,7 @@ erklärt werden kann.
 
 - $\tilde{y}$ ist akzeptables Ergebnis für $y=f(x)$, wenn $\tilde{y} \in \{ f(\tilde{x}) \mid \tilde{x} \ \text{nahe von x}\}$
 
-### Numerische Stabilität
+## Numerische Stabilität
 
 Ein Algorithmus ist numerisch stabil, wenn für alle erlaubten Eingabedaten
 ein _akzeptables_ Ergebnis berechnet wird.
@@ -210,4 +206,4 @@ Beispiel:
 - Berechnung der Wurzel als: $x = \sqrt{\left(\frac{p}{2}\right)^2-q}-\frac{p}{2}$
 
 - Numerisch stabil:
-    - Berechnung der Wurzel als: $x = \frac{ -q}{\sqrt{\left(\frac{p}{2}\right)^2-q}+\frac{q}{2}}$
+  - Berechnung der Wurzel als: $x = \frac{ -q}{\sqrt{\left(\frac{p}{2}\right)^2-q}+\frac{q}{2}}$
