@@ -26,7 +26,7 @@ Eine Floating-Point Zahl wird in Mantisse und Exponent aufgeteilt. Zusammen mit 
 
 - $B$ Basis
 
-  - $t$ Anzahl der Bits
+  - $t$ Anzahl der signifikanten Stellen
   - $\alpha$ kleinster möglicher Exponent
   - $\beta$ größter möglicher Exponent
 
@@ -48,7 +48,7 @@ Beispiel:
 
 ### Maximalen relativen Abstand zweier Float-Zahlen
 
-Die Resolution einer Float-Zahl ist der maximale relative Abstand zu einer anderen Float-Zahl. Sie berechnet sich wie folgt:
+Die Auflösung einer Float-Zahl ist der maximale relative Abstand zu einer anderen Float-Zahl. Sie berechnet sich wie folgt:
 
 - $\varrho = \frac{1}{M} \leq B^{1-t}$
 
@@ -80,7 +80,7 @@ Es gilt:
 
 4. Korrektes Runden:
    - Rundet immer zur nächstgelegenen Float-Zahl.
-   - Falls die nächstgelegene Zahl gleich weit entfernt ist, wird die gerade Zahl gewählt.
+   - Falls die nächstgelegene Zahl gleich weit entfernt ist, wird die Zahl mit gerader Mantisse gewählt.
 
 ### Rundungsfehler
 
@@ -91,7 +91,7 @@ Durch jeden Rundungsschritt entsteht zwangsläufig ein Rundungsfehler.
 - Relative Rundungsfehler:
   - $\epsilon = \frac{rd(x) - x}{x}$
   - Dieser Rundungsfehler kann bei direktem Runden mit: $|\epsilon| \leq \varrho$ abgeschätzt werden.
-  - Beim korekten Runden gilt: $|\epsilon| \leq \frac{1}{2} \cdot \varrho$
+  - Bei korrektem Runden gilt: $|\epsilon| \leq \frac{1}{2} \cdot \varrho$
 
 Durch diese Konstruktion des relativen Rundungsfehlers, gilt:
 
@@ -106,7 +106,7 @@ Es gibt zwei Möglichkeiten, die entstehenden Rundungsfehler zu modellieren:
 
 1. Als Funktion des exakten Ergebnisses: (Starke Hypothese)
 
-- $a \ \dot{*} \ b = f(a*b) = (a*b) \cdot \epsilon(a,b)$
+- $a \ \dot{*} \ b = f(a*b) = (a*b) \cdot (1+ \epsilon)$
   - Diese Variante wird von fast allen Systemen unterstützt.
 
 2. Als Funktion der Rundungsfehler der Operanden: (Schwache Hypothese)
@@ -149,7 +149,7 @@ Diese ist unabhänging vom verwendeten Algorithmus.
 
 Ist ein Problem gut konditioniert, so ist es sehr stabil gegenüber kleinen Änderungen der Eingabedaten. Bei solchen Problemen lohnt sich die Verwendung eines guten Algorithmus.
 
-Ist ein Problem schlecht konditioniert, so ist es sehr empfindlich gegenüber kleinen Änderungen der Eingabedaten. Somit hat sogar der bestmögliche Algorithmus keinen signifikanten Einfluss auf die Genauigkeit des Ergebnisses. Da dieses eh durch die Fehlerfortpflanzung dominiert wird.
+Ist ein Problem schlecht konditioniert, so ist es sehr empfindlich gegenüber kleinen Änderungen der Eingabedaten. Somit hat sogar der bestmögliche Algorithmus keinen signifikanten Einfluss auf die Genauigkeit des Ergebnisses. Da dieses ohnehin durch die Fehlerfortpflanzung dominiert wird.
 
 Man betrachtet wiederum den absoluten und den relativen Fehler:
 
@@ -167,19 +167,17 @@ Im Algemeinen ist die Konditionszahl eines Problems $p(x)$ bei der Eingabe $x$ a
 
 Laut dieser Definition haben alle Grundrechenarten, außer die Addition / Subtraktion, eine Konditionszahl von ca. 1 und sind somit gut konditioniert.
 
-Die Subtraktion sind schlecht konditioniert, da sie bei ca. gleich großen Zahlen zu einem extremen Rundungsfehler führt.
+Die Subtraktion ist schlecht konditioniert, da sie bei ca. gleich großen Zahlen zu einem extrem hohen relativen Fehler führen kann.
 
 Beispiele für gute und schlechte Kondition:
 
 - Gut konditionierte Probleme:
-
-- Berechnung der Fläche eines Rechtecks
-    - Berechnung von Schnittpunkten fast orthogonalen Geraden
+  - Berechnung der Fläche eines Rechtecks
+  - Berechnung von Schnittpunkten von fast orthogonalen Geraden
 
 - Schlecht konditionierte Probleme:
-
-- Berechnung von Nullstellen von Polynomen
-    - Berechnung von Schnittpunkten zweier fast paralleler Geraden
+  - Berechnung von Nullstellen von Polynomen
+  - Berechnung von Schnittpunkten zweier fast paralleler Geraden
 
 ## Akzeptable Ergebnisse
 
@@ -193,8 +191,6 @@ erklärt werden kann.
 
 Ein Algorithmus ist numerisch stabil, wenn für alle erlaubten Eingabedaten
 ein _akzeptables_ Ergebnis berechnet wird.
-
-Beispiele:
 
 - Die Grundrechenarten sind numerisch stabil (Basierend auf schwacher Hypothese)
 - Die Komposition von numerisch stabilen Algorithmen ist nicht zwingend stabil

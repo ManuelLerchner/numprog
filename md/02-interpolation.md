@@ -2,7 +2,7 @@
 
 ## Problem
 
-Given a potentially complicated function $f(x)$, find a function $p(x)$ that is ease to construct and handle. $p(x)$ needs to approximates $f(x)$ and should have a _small_ error.
+Für eine gegebene Funktion $f(x)$, suchen wir eine Funktion $p(x)$ welche einfach zu konstruieren und für weitere Anwendungen nutzbar ist. $p(x)$ soll dabei $f(x)$ annähern und einen _geringen_ Fehler aufweisen.
 
 Der resultierende Fehler ist ein Maß für die Qualität der Approximation. Dieser wird als _Fehlerterm_ bzw. _Remainder_ bezeichnet.
 
@@ -55,7 +55,7 @@ $$
 
 ### Bernstein Polynomials
 
-Mithilfe der Bersntein Polynome lässt sich die Interpolation durch Bezier Kurven realisieren. Diese sind definiert als:
+Mithilfe der Bernstein Polynome lässt sich die Interpolation durch Bezier Kurven realisieren. Diese sind definiert als:
 
 $$
 B_i^n= \binom{n}{i} (1-t)^{n-i} \cdot t^i
@@ -87,7 +87,7 @@ Es gibt zwei verschidenen Anwendungen der Interpolation welche auftreten können
 
 ### Schema von Aitken und Neville
 
-Wenn man nicht an der expliziten Representation des Interpolationspolynoms interessiert ist, sonder nur den Funktionswert an einem festen $x$ Wert bestimmen möchte eignet sich das Schema von Aitken und Neville.
+Wenn man nicht an der expliziten Representation des Interpolationspolynoms interessiert ist, sondern nur den Funktionswert an einem festen $x$ Wert bestimmen möchte eignet sich das Schema von Aitken und Neville.
 
 Algorithmus:
 
@@ -96,23 +96,15 @@ Algorithmus:
 2. Verfeinere rekursiv die Polynome durch die Kombibation mehrerer Polynome.
    - $p_{i,j} = \frac{x_{i+k}-x}{x_{i+k}-x_{i}} \cdot p_{i,k-1}(x) + \frac{x-x_{i}}{x_{i+k}-x_{i}} \cdot p_{i+1,k-1}(x)$
 
-Als Psuedo Code:
+Zur Berechnung mit Hand kann folgendes Schema herangezogen werden:
 
-```python
-def neville(x, x_values, y_values):
-    n = len(x_values)
+![Dreiecks-Schema für Aitken-Neville](images/aitken_neville_schema.png)
 
-    p = np.zeros((n, n))
-    p[:, 0] = y_values
+Als Pseudo-Code:
 
-    for k in range(1, n):
-        for i in range(n - k):
-            p[i, k] =   (x[i + k] - x) / (x[i + k] - x[i]) * p[i, k - 1] +
-                        (x - x[i])     / (x[i + k] - x[i]) * p[i + 1, k - 1]
-    return p[0, n - 1]
-```
+![aitken_neville_code](images/aitken_neville_pseudocode.png)
 
-Diese Form der Interpolation eignet sich nur, wenn nur relative wenige Werte ausgewertet werden müssen. Ansonsten lohnt sich die bestimmung des expliziten Polynoms.
+Diese Form der Interpolation eignet sich nur, wenn nur relative wenige Werte ausgewertet werden müssen. Ansonsten lohnt sich die Bestimmung des expliziten Polynoms.
 
 ### Newton Interpolation
 
@@ -131,13 +123,21 @@ $$
 p(x) = \sum_{i=0}^n [x_0, x_1, \dots, x_i]f \cdot \prod_{j=0}^{i-1} (x-x_j)
 $$
 
-Diese Methode eignet sich gut, um die Explizite Form des Polynoms zu erhalten. Außerdem ist es leicht möglich, weitere Stützstellen hinzuzufügen.
+Diese Methode eignet sich gut, um die explizite Form des Polynoms zu erhalten. Außerdem ist es leicht möglich, weitere Stützstellen hinzuzufügen.
 
-Der entstehende Fehler ist hierbei $\mathcal{O}(h^{n+1})$. Wo $h$ die Distanz zwischen den Stützstellen ist.
+Der entstehende Fehler ist hierbei $\mathcal{O}(h^{n+1})$. Wobei $h$ die Distanz zwischen den Stützstellen ist.
+
+Auch für die Newton Interpolation gibt es ein Schema für die händische Berechnung:
+
+![newton_interpolation_schema](images/newton_interpolation_schema.png)
+
+Dementsprechend sind auch die Variablen in den Formeln anders benannt:
+
+![newton_interpolation_formeln](images/newton_interpolation_formeln.png)
 
 ## Kondition von Interpolationspolynomen
 
-Die Kondition der Polynomialen Interpolation ist besonders bei einer großen Anzahl von Stützstellen ($n>7$) ein Problem. Da das entstehende Polynom besonders an den Randstellen extrem oszilieren kann.
+Die Kondition der Polynomialen Interpolation ist besonders bei einer großen Anzahl von Stützstellen ($n>7$) ein Problem. Da das entstehende Polynom besonders an den Randstellen extrem oszillieren kann.
 
 # Polynom - Splines
 
@@ -155,9 +155,9 @@ Beispiel:
 
 ## Kubische Splines
 
-Für den Fall $m=4$ erhält man kubische Splines. Diese eignen sich gut für die Interpolation von Datenpunkten. Da sie einfach zu berechnen sind und eine gute Approximation liefern.
+Für den Fall $m=4$ erhält man kubische Splines. Diese eignen sich gut für die Interpolation von Datenpunkten, da sie einfach zu berechnen sind und eine gute Approximation liefern.
 
-Durch geeignete herleitung, erhält man für jedes Teilintervall folgende Basisfunktionen:
+Durch geeignete Herleitung, erhält man für jedes Teilintervall folgende Basisfunktionen:
 
 $$
 \begin{aligned}
@@ -177,31 +177,39 @@ s(x) &= p*i\left(\frac{x-x_i}{h_i}\right) := p_i(t)\\
 \end{aligned}
 $$
 
-Damit kann der Fehler durch $|f(x)-s(x)| = \mathcal{O}(h^4)$ abgeschätzt werden. Dies ist wesentlich besser als bei der Interpolation durch ein einziges Polynom.
+Hierbei benötigt man allerdings die Ableitung des gewünschten Polynoms an den Stützstellen. Sollten diese aber nicht bekannt sein, können diese unter der Annahme von 2-mal stetiger Differenzierbarkeit folgendermaßen ermittelt werden:
 
-Diese Formel garantieren, dass:
+![Berechnung der Ableitungen](images/kubische_splines_ableitungen.png)
+
+Somit müssen lediglich die Ableitungen in den Randpunkten des Interpolationsintervalls müssen angegeben werden.
+
+Der Fehler für kubische Splines kann durch $|f(x)-s(x)| = \mathcal{O}(h^4)$ abgeschätzt werden. Dies ist wesentlich besser als bei der Interpolation durch ein einziges Polynom.
+
+Diese Formel garantiert, dass:
 
 $$
-s(x_i) = y_i \quad \forall i\\
-s(x_{i+1}) = y_{i+1} \quad \forall i\\
-s'(x_i) = y'_i \quad \forall i\\
-s'(x_{i+1}) = y'_{i+1} \quad \forall i
+\begin{aligned}
+s(x_i) &= y_i \quad &\forall i\\
+s(x_{i+1}) &= y_{i+1} \quad &\forall i\\
+s'(x_i) &= y'_i \quad &\forall i\\
+s'(x_{i+1}) &= y'_{i+1} \quad &\forall i
+\end{aligned}
 $$
 
 # Trigonometrische Interpolation
 
 ## Definition
 
-Bei dieser Form von Interpolation werden die Basisfunktionen durch Sinus und Kosinus Funktionen ersetzt. Diese Form der Interpolation ist besonders gut geeignet, wenn die zu interpolierenden Datenpunkte periodisch sind.
+Bei dieser Form von Interpolation werden die Basisfunktionen durch Sinus- und Kosinus-Funktionen ersetzt. Diese Form der Interpolation ist besonders gut geeignet, wenn die zu interpolierenden Datenpunkte periodisch sind.
 
-Um den Rechenaufwand zu minimieren behilft man sich der komplexen Darstellung von Sinus und Kosinus Funktionen. $e^{i\theta} = \cos(\theta) + i\sin(\theta)$
+Um den Rechenaufwand zu minimieren behilft man sich der komplexen Darstellung von Sinus- und Kosinus-Funktionen. $e^{i\theta} = \cos(\theta) + i\sin(\theta)$
 
-Die verwendeten Stützstellen liegen einheitlich auf der Einheitskreis. Es gilt:
-$z_i = e^{\frac{2\pi i}{n}j}$
+Die verwendeten Stützstellen liegen gleichverteilt auf dem Einheitskreis. Es gilt:
+$z_j = e^{\frac{2\pi i}{n}j}$
 
-Der kontinuierliche Interpolant ist gegeben durch: $z=e ^{2 \pi i t}$
+Der kontinuierliche Interpolant ist gegeben durch: $z_t=e ^{2 \pi i t} \quad t \in [0, 1]$
 
-Das resultirende Polynom hat die Form:
+Das resultierende Polynom hat die Form:
 
 $$
 p(t) = \sum_{k=0}^n c_k \cdot z^k = \sum_{k=0}^n c_k \cdot e^{2\pi i kt}
