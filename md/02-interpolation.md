@@ -189,3 +189,99 @@ s'(x_{i+1}) = y'_{i+1} \quad \forall i
 $$
 
 # Trigonometrische Interpolation
+
+## Definition
+
+Bei dieser Form von Interpolation werden die Basisfunktionen durch Sinus und Kosinus Funktionen ersetzt. Diese Form der Interpolation ist besonders gut geeignet, wenn die zu interpolierenden Datenpunkte periodisch sind.
+
+Um den Rechenaufwand zu minimieren behilft man sich der komplexen Darstellung von Sinus und Kosinus Funktionen. $e^{i\theta} = \cos(\theta) + i\sin(\theta)$
+
+Die verwendeten Stützstellen liegen einheitlich auf der Einheitskreis. Es gilt:
+$z_i = e^{\frac{2\pi i}{n}j}$
+
+Der kontinuierliche Interpolant ist gegeben durch: $z=e ^{2 \pi i t}$
+
+Das resultirende Polynom hat die Form:
+
+$$
+p(t) = \sum_{k=0}^n c_k \cdot z^k = \sum_{k=0}^n c_k \cdot e^{2\pi i kt}
+$$
+
+### Diskrete Fourier Transformation
+
+Es soll eine Interpolation gefunden werden die die gleichverteilten Punkte $P=[ (x_0, y_0), (x_1, y_1), \dots, (x_n, y_n) ]$ interpoliert.
+Hierbei ist $\omega = e^{\frac{2\pi i}{n}}$ die $n$-te Wurzel von $1$.
+
+$$
+
+\begin{aligned}
+ \begin{bmatrix}
+           c_{0} \\
+           c_{1} \\
+           \vdots \\
+           c_{n-1} \\
+         \end{bmatrix}
+
+ =
+ \frac{1}{n}
+   \begin{bmatrix}
+            1 & 1 & 1& \dots & 1 \\
+           1 & \bar{\omega} & \bar{\omega}^{2}  &\dots & \bar{\omega}^{n-1} \\
+           \vdots & \vdots & \vdots & \ddots & \vdots \\
+             1 & \bar{\omega}^{n-1} & \bar{\omega}^{2(n-1)} & \dots & \bar{\omega}^{(n-1)^2} \\
+         \end{bmatrix}
+   \begin{bmatrix}
+           y_{0} \\
+           y_{1} \\
+           \vdots \\
+           y_{n-1} \\
+         \end{bmatrix}
+
+\end{aligned}
+$$
+
+Man erhält jetzt also die Werte $[(f_0, c_0), (f_1, c_1), \dots, (f_{n-1}, c_{n-1})]$. Welche jeweils die Frequenz und die Amplitude der jeweiligen Basisfunktionen darstellen.
+
+Damit kann das Polynom $p(t)$ berechnet werden.
+
+### Inverse Diskrete Fourier Transformation
+
+Die Inverse Diskrete Fourier Transformation ist die Umkehrung der Diskreten Fourier Transformation. Sie berechnet die Funktionswerte $y_i$ aus den Koeffizienten $c_i$.
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+           y_{0} \\
+           y_{1} \\
+           \vdots \\
+           y_{n-1} \\
+         \end{bmatrix}
+ =
+   \begin{bmatrix}
+            1 & 1 & 1& \dots & 1 \\
+           1 & \omega & \omega^{2}  &\dots & \omega^{n-1} \\
+           \vdots & \vdots & \vdots & \ddots & \vdots \\
+             1 & \omega^{n-1} & \omega^{2(n-1)} & \dots & \omega^{(n-1)^2} \\
+         \end{bmatrix}
+   \begin{bmatrix}
+           c_{0} \\
+           c_{1} \\
+           \vdots \\
+           c_{n-1} \\
+         \end{bmatrix}
+\end{aligned}
+$$
+
+### Fast Fourier Transformation
+
+Die Fast Fourier Transformation ist eine effiziente Methode zur Berechnung der Diskreten Fourier Transformation. Sie ist eine rekursive Methode, die die Berechnung der Diskreten Fourier Transformation in $\mathcal{O}(n \log n)$ durchführt.
+
+Algorithmus:
+
+- Divide:
+  1. Teile die Daten in zwei Teile auf. Einmal die geraden und einmal die ungeraden Indizes.
+  2. Wiederhole Schritt 1 für die beiden Teile, solange bis nur noch ein Wert übrig ist.
+- Konquer:
+  1. Kombiniere jeweils die geraden und ungeraden Werte eines Teils zu einem neuen Wert.
+  2. Wende dazu den _Butterfly_ Operator an.
+     - $[a_j, b_j] \mapsto [a_j +\omega^j b_j, a_j - \omega^j b_j]$
