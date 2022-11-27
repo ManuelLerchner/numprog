@@ -31,7 +31,7 @@ jobs:
       - name: compile and merge pdfs
         uses: docker://pandoc/latex:2.9
         with:
-          args: -V classoption=oneside -V geometry:vmargin=14.5mm -V lang:de --fail-if-warnings --output=merge.pdf ${{ env.files }}
+          args: -V documentclass=report -V classoption=oneside -V geometry:vmargin=14.5mm -V lang:de --fail-if-warnings --output=merge.pdf ${{ env.files }}
 
       - uses: actions/upload-artifact@master
         with:
