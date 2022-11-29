@@ -89,3 +89,23 @@ Der Fehler ist hier in $O(H\cdot h^4 \cdot f^{(4)}(\xi))$.
 Um mehrere Abtastpunkte am Rand des Intervalls können die Abtastpunkte auch anders gewählt werden.
 
 $x_i = a + H \cdot \frac{1- \cos\left(\frac{i \cdot \pi}{n}\right)}{2}$
+
+## Extrapolation
+
+Bei der Extrapolation wird die numerische Quadratur mit verschider Anzahl von Teilintervallen berechnet. Die daraus resultierenden Ergebnisse werden dann intelligent miteinander kombiniert (extrapoliert), um so ein um ein Vielfaches genaueres Ergebnis zu erhalten.
+
+![Extrapolation](images/extrapolation.png)
+
+## Monte Carlo Integration
+
+Bei der Monte Carlo Integration wird die Fläche unter der Kurve durch eine große Anzahl von Zufallszahlen abgeschätzt. Dabei wird die zu integrierende Funktion $f(x)$ in einen Bereich eingebettet, der die Fläche unter der Kurve umfasst. Die Zufallszahlen werden nun in diesem Bereich verteilt. Die Anzahl der Zufallszahlen, die unter der Kurve liegen, ist proportional zur Fläche unter der Kurve.
+
+## Gaussian Quadrature
+
+Bei der Gaussian Quadrature werden die Gewichte und die Stützstellen der Interpolation so gewählt, dass die Interpolation exakt ist.
+
+Bei $n$ Stützstellen ergibt sich eine maximale exakte Interpolation von Polynomen der Ordnung $2n-1$.
+
+## Archimedes Quadrature
+
+Eine Divide-and-Conquer Variante der Integration. Hierbei wird iterativ die Fläche unter einer Kurve bestimmt, indem man Teilflächen konstruiert, die sich immer weiter an die Fläche annähern.
