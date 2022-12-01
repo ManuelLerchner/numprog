@@ -177,14 +177,6 @@ s(x) &= p*i\left(\frac{x-x_i}{h_i}\right) := p_i(t)\\
 \end{aligned}
 $$
 
-Hierbei benötigt man allerdings die Ableitung des gewünschten Polynoms an den Stützstellen. Sollten diese aber nicht bekannt sein, können diese unter der Annahme von 2-mal stetiger Differenzierbarkeit folgendermaßen ermittelt werden:
-
-![Berechnung der Ableitungen](images/kubische_splines_ableitungen.png)
-
-Somit müssen lediglich die Ableitungen in den Randpunkten des Interpolationsintervalls müssen angegeben werden.
-
-Der Fehler für kubische Splines kann durch $|f(x)-s(x)| = \mathcal{O}(h^4)$ abgeschätzt werden. Dies ist wesentlich besser als bei der Interpolation durch ein einziges Polynom.
-
 Diese Formel garantiert, dass:
 
 $$
@@ -195,6 +187,14 @@ s'(x_i) &= y'_i \quad &\forall i\\
 s'(x_{i+1}) &= y'_{i+1} \quad &\forall i
 \end{aligned}
 $$
+
+Der Fehler für kubische Splines kann durch $|f(x)-s(x)| = \mathcal{O}(h^4)$ abgeschätzt werden. Dies ist wesentlich besser als bei der Interpolation durch ein einziges Polynom.
+
+Hierbei benötigt man allerdings die Ableitung des gewünschten Polynoms an den Stützstellen. Sollten diese aber nicht bekannt sein, können diese unter der Annahme von 2-mal stetiger Differenzierbarkeit folgendermaßen ermittelt werden:
+
+![Berechnung der Ableitungen](images/kubische_splines_ableitungen.png)
+
+Somit müssen lediglich die Ableitungen in den Randpunkten des Interpolationsintervalls müssen angegeben werden.
 
 # Trigonometrische Interpolation
 
