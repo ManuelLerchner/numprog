@@ -110,7 +110,7 @@ Es gibt zwei Möglichkeiten, die entstehenden Rundungsfehler zu modellieren:
   - Diese Variante wird von fast allen Systemen unterstützt.
 
 2. Als Funktion der Rundungsfehler der Operanden: (Schwache Hypothese)
-   - $a \ \dot{*} \ b = f(a,b) = (a \cdot (1+ \epsilon_1)) * (b \cdot (1+ \epsilon_2))$
+   - $a \ \dot{*} \ b = f(a,b) = (a \cdot (1+ \epsilon_1))* (b \cdot (1+ \epsilon_2))$
 
 Wobei alle $\epsilon$-Werte betragsmäßig durch die Maschinengenauigkeit $\bar{\epsilon}$ begrenzt sind. Diese entspricht je nach verwendetem Rundungsmodus entweder $\varrho$ oder $\frac{1}{2} \cdot \varrho$.
 
@@ -140,7 +140,7 @@ Diese Modellierung ist einfach, jedoch in der Praxis nur schwer berechenbar, da 
 Hierbei wird das Ergebnis als Funktion der Rundungsfehler der Operanden modelliert.
 
 - $a \ \dot{+} \ b = (a \cdot (1 + \epsilon)) + (b \cdot (1 + \epsilon))$
-- $a \ \dot{*} \ b = (a \cdot \sqrt{1 + \epsilon}) * (b \cdot \sqrt{1 + \epsilon})$
+- $a \ \dot{*} \ b = (a \cdot \sqrt{1 + \epsilon})* (b \cdot \sqrt{1 + \epsilon})$
 
 # Kondition
 

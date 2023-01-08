@@ -290,3 +290,5 @@ Algorithmus:
   1. Kombiniere jeweils die geraden und ungeraden Werte eines Teils zu einem neuen Wert.
   2. Wende dazu den _Butterfly_ Operator an.
      - $[a_j, b_j] \mapsto [a_j +\omega^j b_j, a_j - \omega^j b_j]$
+
+        - $j$ bezeichnet dabei den Index des der Operation im jeweiligen "Batch".
