@@ -79,7 +79,7 @@ Die Simpson'sche Regel ist eine Erweiterung der Trapezregel. Hierbei wird die Fu
 Auf dem gesamten Intervall $[a,b]$ ergibt sich:
 
 $$
-Q_{SS}(f):= \frac{h}{3} \cdot \left(f_0 + 4 \cdot f_1 + 2 \cdot f_2 + 4 \cdot f_3 + \dots + 2 \cdot f_{n-2} + 4 \cdot f_{n-1} + f_n\right)
+Q_{SS}(f):= \frac{h}{6} \cdot \left(f_0 + 4 \cdot f_1 + 2 \cdot f_2 + 4 \cdot f_3 + \dots + 2 \cdot f_{n-2} + 4 \cdot f_{n-1} + f_n\right)
 $$
 
 Der Fehler ist hier in $O(H\cdot h^4 \cdot f^{(4)}(\xi))$.
@@ -105,6 +105,15 @@ Bei der Monte Carlo Integration wird die Fl채che unter der Kurve durch eine gro�
 Bei der Gaussian Quadrature werden die Gewichte und die St체tzstellen der Interpolation so gew채hlt, dass die Interpolation exakt ist.
 
 Bei $n$ St체tzstellen ergibt sich eine maximale exakte Interpolation von Polynomen der Ordnung $2n-1$.
+
+Zum Beispiel:
+
+$$
+\int_{-1}^{1} f_k(x) \cdot dx = \sum_{i=1}^{n} w_i \cdot f_k(x_i)
+$$
+
+Erstelle Gleichungsystem f체r $f_k \in \{
+  1, x, x^2, x^3, \dots,\}$
 
 ## Archimedes Quadrature
 
