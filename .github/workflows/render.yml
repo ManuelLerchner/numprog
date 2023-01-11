@@ -53,6 +53,12 @@ jobs:
         with:
           name: merge
 
+      - name: Delete Old Github Release
+        uses: ame-yu/action-delete-latest-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: $ {{ github.repository }}
+
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
