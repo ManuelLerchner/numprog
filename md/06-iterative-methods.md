@@ -15,7 +15,7 @@ $$
 
 Where $r^{(i)}$ is the residual at Iteration-Step $i$, $b$ is the right hand side of the equation, and $x^{(i)}$ is the approximation of the solution at Iteration-Step $i$.
 
-#### Richardson Iteration
+### Richardson Iteration
 
 The Richardson Iteration is the easiest way of updating the guessed solution. It works by just adding the Residual each step.
 
@@ -40,7 +40,7 @@ def richardson(A, b tol=1e-6, max_iter=1000):
     return x
 ```
 
-#### Jacobi Iteration
+### Jacobi Iteration
 
 The Jacobi Iteration is an improvement of the Richardson Iteration. It uses the diagonal-domintant property of the matrix to improve the konvergence speed.
 
@@ -72,7 +72,7 @@ def jacobi(A, b, tol=1e-6, max_iter=1000):
     return x
 ```
 
-#### Gauss-Seidel Iteration
+### Gauss-Seidel Iteration
 
 The Gauss-Seidel Iteration is an improvement of the Jacobi Iteration. It uses doesnt use a `freezed` residual during each update step. Instead it
 recalculates the residual after each improvement and uses the improved residual for future steps.
@@ -108,7 +108,7 @@ def gauss_seidel(A, b, tol=1e-6, max_iter=1000):
 
 In all of the Methods above a damping-factor $0< \alpha < 2$ can be used to improve the convergence speed. $x^{(i+1)} = x^{(i)} + \alpha y$.
 
-#### SOR Iteration
+### SOR Iteration
 
 The SOR Iteration is an improvement of the Gauss-Seidel Iteration. It uses a damping-factor $\alpha$ to improve the convergence speed.
 
