@@ -79,7 +79,7 @@ Die Simpson'sche Regel ist eine Erweiterung der Trapezregel. Hierbei wird die Fu
 Auf dem gesamten Intervall $[a,b]$ ergibt sich:
 
 $$
-Q_{SS}(f):= \frac{h}{6} \cdot \left(f_0 + 4 \cdot f_1 + 2 \cdot f_2 + 4 \cdot f_3 + \dots + 2 \cdot f_{n-2} + 4 \cdot f_{n-1} + f_n\right)
+Q_{SS}(f):= \frac{h}{3} \cdot \left(f_0 + 4 \cdot f_1 + 2 \cdot f_2 + 4 \cdot f_3 + \dots + 2 \cdot f_{n-2} + 4 \cdot f_{n-1} + f_n\right)
 $$
 
 Der Fehler ist hier in $O(H\cdot h^4 \cdot f^{(4)}(\xi))$.
