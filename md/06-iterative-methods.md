@@ -46,7 +46,7 @@ x^ {(i+1)} = x^{(i)} + I r^{(i)}
 $$
 
 ```python
-def richardson(A, b tol=1e-6, max_iter=1000):
+def richardson(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
     for i in range(max_iter):
         r = b - A @ x
@@ -113,10 +113,8 @@ where $D_A$ is the diagonal-row part of matrix A and $L_A$ is the lower-triangul
 def gauss_seidel(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
     for i in range(max_iter):
-        for k in range(len(b)):
-            r = b[k] - A[k, :k] @ x[:k] - A[k, k + 1 :] @ x[k + 1 :]
-            y = r / A[k, k]
-            x[k] = x[k] + y
+        r = b - A @ x
+        x = x + np.diag(1 / np.diag(A)) @ r
         if np.linalg.norm(r) < tol:
             break
     return x
@@ -179,9 +177,9 @@ def steepest_descent(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
     r = b - A @ x
     for i in range(max_iter):
-        alpha = r.T @ r / (r.T @ A @ r)
-        x = x - alpha * A @ r
-        r = b - A @ x
+        alpha = (r.T @ r) / (r.T @ A @ r)
+        x = x + alpha * r
+        r = r - alpha*A @ r
         if np.linalg.norm(r) < tol:
             break
     return x
@@ -212,11 +210,12 @@ def conjugate_direction(A, b, tol=1e-6, max_iter=1000):
     r = b - A @ x
     d = r
     for i in range(max_iter):
-        alpha = r.T @ r / (r.T @ A @ r)
-        x = x - alpha * A @ d
-        r = b - A @ x
-        beta = r.T @ r / (r.T @ A @ r)
-        d = r + beta * d
+        alpha = (r.T @ r) / (d.T @ A @ d)
+        x = x + alpha * d
+        r_new = r - alpha * A @ d
+        beta = (r_new.T @ r_new) / (r.T @ r)
+        d = r_new + beta * d
+        r = r_new
         if np.linalg.norm(r) < tol:
             break
     return x
@@ -376,16 +375,15 @@ Algorithm:
 4. Update $x_0$ with $x_0 + s$.
 
 ```python
-def newton_raphson_multidim(f, df, x0, tol=1e-6, max_iter=1000):
+def newton_raphson_multidim(f, J, x0, tol=1e-6, max_iter=1000):
     for i in range(max_iter):
-        L, U = scipy.linalg.lu(df(x0))
+        L, U, _ = scipy.linalg.lu(J(x0))
         y = scipy.linalg.solve_triangular(L, -f(x0), lower=True)
         s = scipy.linalg.solve_triangular(U, y)
-        x1 = x0 + s
-        if np.allclose(f(x1), 0, atol=tol):
+        x0 = x0 + s
+        if np.allclose(f(x0), 0, atol=tol):
             break
-        x0 = x1
-    return x1
+    return x0
 ```
 
 This method converges localy-quadraticly. But it requires the Jacobian Matrix of the function.
