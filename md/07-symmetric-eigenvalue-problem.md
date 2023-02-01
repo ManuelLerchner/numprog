@@ -109,4 +109,39 @@ The algorithm is as follows:
 4. Repeat steps 2 and 3 until convergence
 5. The eigenvalues are the diagonal elements of $A_k$
 
-#### QR Algorithm
+#### QR Decomposition
+
+The Idea of the QR Decomposition is to decompose a matrix $A$ into a product of an orthogonal matrix $Q$ and an upper triangular matrix $R$.
+
+This is equivalent to finding an orthogonal Matrix $G$ such that $GA = R$, because it follows that $A=G^T R$.
+
+It works by applying a sequence of rotations (Givens-Rotations) to zero out subdiagonal elements of $A$.
+
+Example $\mathbb{R}^2$:
+
+- $A = \begin{bmatrix} x_1 & x_2 \\ x_3 & x_4 \end{bmatrix}$
+- $G = \frac{1}{\sqrt{x_1^2 + x_2^2}} \begin{bmatrix} x_1 & x_2 \\ -x_2 & x_1 \end{bmatrix}$
+  - $G$ describes the rotation of the first column of $A$ to the $x_1$-axis ($\theta = \arctan\left(\frac{x_2}{x_1}\right)$)
+
+In higher dimensions the Rotation works similar. In each step the Matrix is rotated by a 2d-rotation, to zero out the subdiagonal elements.
+
+### Cost
+
+The Naive way of performing QR-Decomposition is $O(n^5)$. Because you need to apply $O(n^2)$ matrix-multiplications. But you can reduce the cost to $O(n^3)$ because only two rows are changed at a time due to the rotations.
+
+The Convergence of the QR-Iteration to the eigenvalues is **linear**. If you combine this method with shift-operations you can improve the convergence to **quadratic**.
+
+The corrisponding Eigenvectors can be computed by using inverse iteration with the corresponding eigenvalue.
+
+## Improving the Convergence
+
+All the Methods above, are relatively slow, because the Matrix has many non-zero elements. So we can improve the convergence by transforming the problem into a sparse matrix.
+
+### Householder Transformations
+
+Using reflections, we can transform a matrix into a matrix with a lot of zeros. This is done by applying a sequence of Householder transformations to $A$.
+
+New Algorithm:
+
+1. Transfom $A$ into a triangular matrix $A'$ using Householder transformations ($O(n^3)$)
+2. Perform QR-Iteration on $A'$ ($O(n^2)$ because only one diagonal row needs to be zeroed out)
