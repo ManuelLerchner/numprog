@@ -9,7 +9,7 @@ Hier sind die wichtigsten Konzepte der NumProg Vorlesung von Dr. Hans-Joachim Bu
 
 Die Mitschriften selbst sind in Markdown geschrieben und werden mithilfe einer GitHub-Action nach jedem Push mithilfe von [Pandoc](https://pandoc.org/) zu einem PDF konvertiert.
 
-Eine stets aktuelle Version der PDFs kann über [https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf](https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf) heruntergeladen werden.
+Eine stets aktuelle Version der PDFs kann über [numerisches_programmieren_IN0019_WS2223_merge.pdf](https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf) heruntergeladen werden.
 
 ## How to Contribute
 
