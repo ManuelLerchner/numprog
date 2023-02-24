@@ -15,7 +15,7 @@ include-before: |
 
     Die Mitschriften selbst sind in Markdown geschrieben und werden mithilfe einer GitHub-Action nach jedem Push mithilfe von [Pandoc](https://pandoc.org/) zu einem PDF konvertiert.
 
-    Eine stets aktuelle Version der PDFs kann über [https://github.com/ManuelLerchner/numprog/releases/download/Release/merge.pdf](https://github.com/ManuelLerchner/numprog/releases/download/Release/merge.pdf) heruntergeladen werden.
+    Eine stets aktuelle Version der PDFs kann über [https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf](https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf) heruntergeladen werden.
 
   ## How to Contribute
 
