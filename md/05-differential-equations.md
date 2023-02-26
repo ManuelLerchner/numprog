@@ -96,6 +96,19 @@ The Error of the Euler method is:
 - $l_{\delta t} = \mathcal{O}(\delta t)$
 - $e_{\delta t} = \mathcal{O}(\delta t)$
 
+#### Euler Method in Python
+
+```python
+def euler(f, t0, y0, dt, n):
+    t = t0
+    y = y0
+
+    for i in range(n):
+        y = y + dt*f(t,y)
+        t = t + dt
+    return y
+```
+
 ### Method of Heun
 
 The method of Heun uses two steps of the Euler method to improve the accuracy of the solution.
@@ -110,6 +123,19 @@ The Error of the method of Heun is:
 
 - $l_{\delta t} = \mathcal{O}((\delta t)^2)$
 - $e_{\delta t} = \mathcal{O}((\delta t)^2)$
+
+#### Method of Heun in Python
+
+```python
+def heun(f, t0, y0, dt, n):
+    t = t0
+    y = y0
+
+    for i in range(n):
+        y = y + dt/2*(f(t,y) + f(t+dt, y+dt*f(t,y)))
+        t = t + dt
+    return y
+```
 
 ### Runge-Kutta Method
 
@@ -135,6 +161,24 @@ The Error of the Runge-Kutta method is:
 
 - $l_{\delta t} = \mathcal{O}((\delta t)^4)$
 - $e_{\delta t} = \mathcal{O}((\delta t)^4)$
+
+#### Runge-Kutta Method in Python
+
+```python
+def rungeKutta(f, t0, y0, dt, n):
+    t = t0
+    y = y0
+
+    for i in range(n):
+        T1 = f(t,y)
+        T2 = f(t+dt/2, y+dt/2*T1)
+        T3 = f(t+dt/2, y+dt/2*T2)
+        T4 = f(t+dt, y+dt*T3)
+
+        y = y + dt/6*(T1 + 2*T2 + 2*T3 + T4)
+        t = t + dt
+    return y
+```
 
 ## Consistency and Convergence
 

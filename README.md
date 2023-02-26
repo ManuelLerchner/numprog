@@ -11,6 +11,10 @@ Die Mitschriften selbst sind in Markdown geschrieben und werden mithilfe einer G
 
 Eine stets aktuelle Version der PDFs kann über [numerisches_programmieren_IN0019_WS2223_merge.pdf](https://manuellerchner.github.io/numprog/numerisches_programmieren_IN0019_WS2223_merge.pdf) heruntergeladen werden.
 
+## Implementation
+
+Außerdem befindet sich eine Implementation von verschiedenen Algorithmen im Ordner `/algorithms` auf [GitHub](https://github.com/ManuelLerchner/numprog). Diese sind in Python und unter der Verwendung von [NumPy](https://numpy.org/) geschrieben.
+
 ## How to Contribute
 
 1. Fork this Repository

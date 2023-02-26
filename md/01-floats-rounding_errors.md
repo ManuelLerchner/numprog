@@ -1,8 +1,6 @@
-# Floating-Point
+# Floating-Point Arithmetik
 
 ## Fixed-Point
-
-### Representation
 
 Bei Fixed-Point wird die Zahl in eine ganze Zahl und eine Bruchzahl aufgeteilt. Diese werden jeweils "normal" kodiert.
 
@@ -11,8 +9,6 @@ Bei Fixed-Point wird die Zahl in eine ganze Zahl und eine Bruchzahl aufgeteilt. 
   - Konstanter Abstand zwischen zwei Zahlen. Oft nicht benötigt.
 
 ## Floating-Point
-
-### Representation
 
 Eine Floating-Point Zahl wird in Mantisse und Exponent aufgeteilt. Zusammen mit einem Vorzeichenbit, lässt sich so ein sehr großer Wertebereich darstellen.
 
@@ -199,7 +195,7 @@ Beispiel:
 
 - Numerisch instabil:
 
-- Berechnung der Wurzel als: $x = \sqrt{\left(\frac{p}{2}\right)^2-q}-\frac{p}{2}$
+  - Berechnung der Wurzel als: $x = \sqrt{\left(\frac{p}{2}\right)^2-q}-\frac{p}{2}$
 
 - Numerisch stabil:
   - Berechnung der Wurzel als: $x = \frac{ -q}{\sqrt{\left(\frac{p}{2}\right)^2-q}+\frac{q}{2}}$

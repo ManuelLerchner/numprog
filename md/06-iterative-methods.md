@@ -45,6 +45,8 @@ $$
 x^ {(i+1)} = x^{(i)} + I r^{(i)}
 $$
 
+#### Richardson Iteration in Python
+
 ```python
 def richardson(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
@@ -77,6 +79,8 @@ $$
 
 where $D$ is the diagonal-row part of matrix A.
 
+#### Jacobi Iteration in Python
+
 ```python
 def jacobi(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
@@ -108,6 +112,8 @@ x^{(i+1)} = x^{(i)} + (D_A+L_A)^{-1} r^{(i)}
 $$
 
 where $D_A$ is the diagonal-row part of matrix A and $L_A$ is the lower-triangular part of matrix A.
+
+#### Gauss-Seidel Iteration in Python
 
 ```python
 def gauss_seidel(A, b, tol=1e-6, max_iter=1000):
@@ -172,6 +178,8 @@ x^{(i+1)} &= x^{(i)} - \alpha_i A r^{(i)}
 \end{aligned}
 $$
 
+#### Steepest Descent in Python
+
 ```python
 def steepest_descent(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
@@ -203,6 +211,8 @@ x^{(i+1)} &= x^{(i)} - \alpha_i A d^{(i)} \\
 r^{(i+1)} &= r^{(i)} - \alpha_i A d^{(i)} \\
 \end{aligned}
 $$
+
+#### Conjugate Direction in Python
 
 ```python
 def conjugate_direction(A, b, tol=1e-6, max_iter=1000):
@@ -243,6 +253,8 @@ Algorithm:
 3. Determine the new interval, where the root is located. $[a,c]$ or $[c,b]$
 4. Continue until $|f(c)| < \epsilon$
 
+#### Bisecting Method in Python
+
 ```python
 def bisect(f, a, b, tol=1e-6, max_iter=1000):
     for i in range(max_iter):
@@ -263,6 +275,8 @@ This method converges globaly-linearly. But its easy to compute.
 The Regula Falsi Method works similar to the Bisecting Method, but uses a different formula to calculate the midpoint.
 
 The new midpoint is calculated by the intersection of the line between $(a,f(a))$ and $(b,f(b))$ and the $x$-axis.
+
+#### Regula Falsi Method in Python
 
 ```python
 def regula_falsi(f, a, b, tol=1e-6, max_iter=1000):
@@ -289,6 +303,8 @@ Algorithm:
 2. Draw a line between $(x_0,f(x_0))$ and $(x_1,f(x_1))$. Let $x_2$ be the intersection with the $x$-axis.
 3. Continue with $x_1$ and $x_2$ ...
 
+#### Secant Method in Python
+
 ```python
 def secant(f, x0, x1, tol=1e-6, max_iter=1000):
     for i in range(max_iter):
@@ -311,6 +327,8 @@ Algorithm:
 1. Choose $x_0$ and calculate $f(x_0)$ and $f'(x_0)$
 2. Draw a line through $(x_0,f(x_0))$ with slope $f'(x_0)$. Let $x_1$ be the intersection with the $x$-axis.
 3. Continue with $x_1$ and $f(x_1)$ and $f'(x_1)$ ...
+
+#### Newton-Raphson Method in Python
 
 ```python
 def newton_raphson(f, df, x0, tol=1e-6, max_iter=1000):
@@ -373,6 +391,8 @@ Algorithm:
 2. Factorize $F'(x_0)=LU$.
 3. Solve $Ly=-F(x_0)$ and $Us=y$.
 4. Update $x_0$ with $x_0 + s$.
+
+#### Newton-Raphson Method for Multidimensional Systems in Python
 
 ```python
 def newton_raphson_multidim(f, J, x0, tol=1e-6, max_iter=1000):
