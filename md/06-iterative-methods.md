@@ -148,7 +148,7 @@ solution for $x$ if the iteration converges
 
 - If $A$ is strict diagonal dominant, the Jacobi and Gauss-Seidel methods converges
 
-The smaller the spectral radius ($|\text{smallest eigenvalue}|$) of the iteration matrix, the faster the iteration converges.
+The smaller the spectral radius ($|\text{largest eigenvalue}|$) of the iteration matrix, the faster the iteration converges.
 
 In generall, the finer the mesh, the bigger the spectral radius. This is bad for big simulations.
 
