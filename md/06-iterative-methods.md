@@ -3,7 +3,7 @@
 ## Introduction
 
 Many Problems occuring in real life require solving a system of linear equations. However, in many cases, the system of equations is too large to be solved analytically (Gauss-Elimination: $\mathcal{O}(n^3)$). In this case, iterative methods are used to solve the system of equations numerically.
-Most appeaing matrices also have a specific shape (sparse, diagonal-domintant,...) which can be exploited to improve the performance of the methods.
+Most appearing matrices also have a specific shape (sparse, diagonal-dominant,...) which can be exploited to improve the performance of the methods.
 
 ## Terminology
 
@@ -13,13 +13,13 @@ $$
 |x^{(i+1)} - \hat{x}| \leq c \cdot |x^{(i)} - \hat{x}|^\alpha
 $$
 
-If  $\alpha =1 \land 0< c < 1$ the method konverges linearly.
+If  $\alpha =1 \land 0< c < 1$ the method converges linearly.
 
-If $\alpha = 2 \land 0< c < 1$ the method konverges quadratically and so on.
+If $\alpha = 2 \land 0< c < 1$ the method converges quadratically and so on.
 
-There exist methods which don't konverge globaly. That means that there exist a solution $x$ which is not found by the method. Such methods only converge if the starting guess $x^{(0)}$ is close enough to the solution.
+There exist methods which don't converge globaly. That means that there exists a solution $x$ which is not found by the method. Such methods only converge if the starting guess $x^{(0)}$ is close enough to the solution.
 
-All linear iterative methods konverge globaly.
+All linear iterative methods converge globaly.
 
 ## Relaxation Methods
 
@@ -60,7 +60,7 @@ def richardson(A, b, tol=1e-6, max_iter=1000):
 
 ### Jacobi Iteration
 
-The Jacobi Iteration is an improvement of the Richardson Iteration. It uses the diagonal-domintant property of the matrix to improve the konvergence speed.
+The Jacobi Iteration is an improvement of the Richardson Iteration. It uses the diagonal-dominant property of the matrix to improve the convergence speed.
 
 If you use a for-loop based implementation, in order to not overwrite the values of the previous iteration, the update-vector needs to be precomputed. This needs to be done, becausethe residual $r=b-Ax^{(i)}$ changes with every step.
 
@@ -136,19 +136,19 @@ $$
 x^{(i+1)} = x^{(i)} + \alpha (D_A+L_A)^{-1} r^{(i)}
 $$
 
-### Konvergence of those Methods
+### convergence of those Methods
 
 - Due to construction of the methods, there only exists one possible
-solution for $x$ if the iteration konverges
+solution for $x$ if the iteration converges
 
 - If the spectral radius of the iteration matrix is less than 1, the
-  iteration konverges
+  iteration converges
 
-- If $A$ is positive-definite, the SOR method (and therefore the Gauss-Seidel method) konverges
+- If $A$ is positive-definite, the SOR method (and therefore the Gauss-Seidel method) converges
 
-- If $A$ is strict diagonal dominant, the Jacobi and Gauss-Seidel methods konverges
+- If $A$ is strict diagonal dominant, the Jacobi and Gauss-Seidel methods converges
 
-The smaller the spectral radius ($|\text{smallest eigenvalue}|$) of the iteration matrix, the faster the iteration konverges.
+The smaller the spectral radius ($|\text{smallest eigenvalue}|$) of the iteration matrix, the faster the iteration converges.
 
 In generall, the finer the mesh, the bigger the spectral radius. This is bad for big simulations.
 
