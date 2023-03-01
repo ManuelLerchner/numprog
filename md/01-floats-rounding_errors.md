@@ -46,7 +46,7 @@ Beispiel:
 
 Die Auflösung einer Float-Zahl ist der maximale relative Abstand zu einer anderen Float-Zahl. Sie berechnet sich wie folgt:
 
-- $\varrho = \frac{1}{M} \leq B^{1-t}$
+- $\varrho = B^{1-t}$
 
 Beispiel:
 

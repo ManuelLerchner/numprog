@@ -120,7 +120,7 @@ def gauss_seidel(A, b, tol=1e-6, max_iter=1000):
     x = np.zeros_like(b)
     for i in range(max_iter):
         r = b - A @ x
-        x = x + np.diag(1 / np.diag(A)) @ r
+        x = x + np.linalg.inv(np.tril(A)) @ r
         if np.linalg.norm(r) < tol:
             break
     return x
