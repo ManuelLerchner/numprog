@@ -99,7 +99,7 @@ recalculates the residual after each improvement and uses the improved residual 
 
 $$
 \begin{aligned}
-r^{(i)}_k&= b_k - \underbrace{\sum_{j=1}^{k-1} a_{kj} x^{(i)}_j}_{\text{Already updated x}} - \underbrace{\sum_{j=k}^{n} a_{kj} x^{(i)}_j}_{\text{Old x}} \\
+r^{(i)}_k&= b_k - \underbrace{\sum_{j=1}^{k-1} a_{kj} x^{(i+1)}_j}_{\text{Already updated x}} - \underbrace{\sum_{j=k}^{n} a_{kj} x^{(i)}_j}_{\text{Old x}} \\
 y_k &= \frac{1}{a_{kk}} r_k^{(i)} \\
 x^{(i+1)}_k &= x^{(i)}_k + y_k
 \end{aligned}

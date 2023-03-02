@@ -102,8 +102,8 @@ Es gibt zwei Möglichkeiten, die entstehenden Rundungsfehler zu modellieren:
 
 1. Als Funktion des exakten Ergebnisses: (Starke Hypothese)
 
-- $a \ \dot{*} \ b = f(a*b) = (a*b) \cdot (1+ \epsilon)$
-  - Diese Variante wird von fast allen Systemen unterstützt.
+   - $a \ \dot{*} \ b = f(a*b) = (a*b) \cdot (1+ \epsilon)$
+     - Diese Variante wird von fast allen Systemen unterstützt.
 
 2. Als Funktion der Rundungsfehler der Operanden: (Schwache Hypothese)
    - $a \ \dot{*} \ b = f(a,b) = (a \cdot (1+ \epsilon_1))* (b \cdot (1+ \epsilon_2))$
@@ -118,11 +118,11 @@ Die gerundeten Varianten der Operatoren sind nicht mehr assoziativ!
 
 Außerdem findet Absorption statt. Das bedeutet, dass z.B. bei der Subtraktion von ähnlich großen Zahlen, die Anzahl der signifikanten Stellen deutlich abnimmt. Und dadurch ein extrem hoher Rundungsfehler entsteht.
 
-# Fehleranalyse
+## Fehleranalyse
 
 Es gibt die Möglichkeit der Vorwärts- und Rückwärtsfehleranalyse.
 
-## Vorwärts Fehleranalyse
+### Vorwärts Fehleranalyse
 
 Hierbei wird das Ergebnis als Funktion des exakten Ergebnisses modelliert.
 
@@ -131,14 +131,14 @@ Hierbei wird das Ergebnis als Funktion des exakten Ergebnisses modelliert.
 
 Diese Modellierung ist einfach, jedoch in der Praxis nur schwer berechenbar, da die Fehler korreliert sind.
 
-## Rückwärts Fehleranalyse
+### Rückwärts Fehleranalyse
 
 Hierbei wird das Ergebnis als Funktion der Rundungsfehler der Operanden modelliert.
 
 - $a \ \dot{+} \ b = (a \cdot (1 + \epsilon)) + (b \cdot (1 + \epsilon))$
 - $a \ \dot{*} \ b = (a \cdot \sqrt{1 + \epsilon})* (b \cdot \sqrt{1 + \epsilon})$
 
-# Kondition
+## Kondition
 
 Die Kondition eines Problems ist ein Maß für die Sensitivität des Problems gegenüber Änderungen der Eingabedaten.
 Diese ist unabhänging vom verwendeten Algorithmus.
@@ -175,7 +175,7 @@ Beispiele für gute und schlechte Kondition:
   - Berechnung von Nullstellen von Polynomen
   - Berechnung von Schnittpunkten zweier fast paralleler Geraden
 
-## Akzeptable Ergebnisse
+### Akzeptable Ergebnisse
 
 Ein numerisch akzeptables Ergebnis ist dann gegeben, wenn das berechnete
 Ergebnis, auch als exaktes Ergebnis von nur leicht gestörten Eingabedaten
@@ -183,7 +183,7 @@ erklärt werden kann.
 
 - $\tilde{y}$ ist akzeptables Ergebnis für $y=f(x)$, wenn $\tilde{y} \in \{ f(\tilde{x}) \mid \tilde{x} \ \text{nahe von x}\}$
 
-## Numerische Stabilität
+### Numerische Stabilität
 
 Ein Algorithmus ist numerisch stabil, wenn für alle erlaubten Eingabedaten
 ein _akzeptables_ Ergebnis berechnet wird.
