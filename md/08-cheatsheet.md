@@ -493,7 +493,7 @@ Oder: $x^{(i+1)}=x+{(LowerTriang_A)}^{-1}\cdot (b-Ax)$
 
 ### Steepest-Descent-Iteration
 
-$\alpha^{(i)} = \frac{(r^{(i)})^T \cdot r^{(i)}}{r^{(i)} \cdot A \cdot r^{(i)}}$
+$\alpha^{(i)} = \frac{(r^{(i)})^T \cdot r^{(i)}}{(r^{(i)})^T \cdot A \cdot r^{(i)}}$
 
 $x^{(i+1)} = x^{(i)} + \alpha^{(i)} \cdot r^{(i)}$
 
@@ -524,11 +524,13 @@ Aus einem Eigenvektor $v$ folgt der Eigenwert $\lambda$.
 
 $\lambda = \frac{v^T \cdot A \cdot v}{v^T \cdot v}$
 
+Für $||v|| = 1$ gilt $\lambda = v^T \cdot A \cdot v$
+
 ### Power-Iteration
 
 $x^{(i+1)} = \frac{A \cdot x^{(i)}}{||A \cdot x^{(i)}||}$
 
-Konvergiert zu einem Eigenvektor mit dem größten Eigenwert.
+Konvergiert zu einem Eigenvektor mit dem (betragsmäßig) größten Eigenwert.
 
 $O(n^2)$ pro Iteration. Konvergenz Eigenvector: $O(n)$, Konvergenz Eigenwert: $O(n^2)$
 
