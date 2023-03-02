@@ -14,11 +14,9 @@
 
 + **Mantissa:** 1. + 23 bits
 
-$-3.5 = -\ 2^1 \cdot 1.11 = \underbrace{1}_{\text{sign}}\ \underbrace{10000000}_{\text{exponent}}\ \ { {\color{red} \scriptsize (1.)}}\ \underbrace{11000000000000000000000}_{\text{mantissa}}$
-
 ### Machinengenauigkeit
 
-+ $\epsilon_{mach} = B^{1-t}$
++ $\rho = B^{1-t}$
   
 mit $B$ Basis und $t$ Mantissenstelle (inklusive impliziter 1)
 
@@ -28,7 +26,7 @@ Dadurch wird der maximale relative Abstand zwischen zwei Zahlen festgelegt.
 
 Es wird immer gerundet. Falls die Zahl genau in der Mitte liegt, wird auf die nächste gerade Zahl gerundet.
 
-Der maximale relative Rundungsfehler ist: $\epsilon_{rel} \leq \epsilon_{mach}$
+Der maximale relative Rundungsfehler ist: $\epsilon_{mach} \leq \rho$
 
 ### Auslöschung
 
@@ -76,7 +74,7 @@ Grundrechenarten $\{+,-\}$ sind schlecht konditioniert.
   
     $L_{n,i}(x)=\prod_{j=0,j\neq i}^n\frac{x-x_j}{x_i-x_j}$
 
-    p(x) = $\sum_{i=0}^n y_i L_{n,i}(x)$
+    $p(x) = \sum_{i=0}^n y_i L_{n,i}(x)$
 
 ### Interpolationfehler
 
@@ -91,6 +89,8 @@ Interpolation-**Wert** wird bestimmt. $O(n^2)$
 Lohnt sich bei wenigen zu bestimmenden Werten.
 
 Eignet sich gut, zusätzliche Stützstellen im Nachhinein zu ergänzen.
+
+---
 
 |$x_i$  | $i \diagdown k$ | 0 | 1  | 2 |
 |:----: |:----:|:--------:  |:--------: | :--------:|
@@ -118,7 +118,7 @@ Es brauch jedoch jeweils $O(n)$ um das Polynom bei $x$ zu berechnen.
 
 + $c_{i,k} = \frac{c_{i+1,k-1}-c_{i,k-1}}{x_{i+k}-x_i} = \frac{\swarrow - \leftarrow}{x_{\#diag} - x_{row}}$
 
-+ $P(x) = c_{0,0} + c_{0,1}(x-x_0) + c_{0,2}(x-x_0)(x-x_1)+\dots + c_{0,n} \prod_{j=0}^n (x-x_j)$
++ $P(x) = c_{0,0} + c_{0,1}(x-x_0) + c_{0,2}(x-x_0)(x-x_1)+\dots + c_{0,n} \prod_{j=0}^{n-1} (x-x_j)$
 
 ### Runge Effekt
 
@@ -190,7 +190,7 @@ $$
 \begin{bmatrix}
 c_0 \\ c_1 \\ \vdots \\ c_{n-1}
 \end{bmatrix} = \frac{1}{n} \cdot \underbrace{\begin{bmatrix}
-1 & 1 & \dots & 1 \\ 1 & \bar \omega^{1\cdot 1} & \dots & \bar \omega^{1\cdot (n-1)} \\ \vdots & \vdots & \ddots & \vdots \\ 1 & \bar \omega^{(n-1)\cdot 1} & \dots & \bar \omega^{(n-1)\cdot (n-1)}
+1 & 1 & \dots & 1 \\ 1 & \overline \omega^{1\cdot 1} & \dots & \overline \omega^{1\cdot (n-1)} \\ \vdots & \vdots & \ddots & \vdots \\ 1 & \overline \omega^{(n-1)\cdot 1} & \dots & \overline \omega^{(n-1)\cdot (n-1)}
 \end{bmatrix}}_{\text{DFT Matrix}} \cdot
 \begin{bmatrix}
 v_0 \\ v_1 \\ \vdots \\ v_{n-1}
@@ -297,11 +297,13 @@ $Q_{i,k} = Q_{i,k-1} + \frac{Q_{i,k-1}-Q_{i-1,k-1}}{\frac{h_{i-k}^2}{h_{i}^2}-1}
 
 Alternativ: Extrapoliere die Punkte $\{(h_0,Q_{TS}(f,h_0)),(h_1,Q_{TS}(f,h_1)),\dots,\}$ in einem Koordinatensystem und schätze den Wert für $h=0$ ab.
 
+Fehler: $|p(0) - I(f)| = O(h_1^2 \cdot \ \dots \ \cdot h_i^2)$
+
 ### Gauss-Quadratur
 
 Idee: Integral als Summe von Funktionswerten an unregelmäßigen Stützstellen mit verschiedenen Gewichten.
 
-$\int_a^b p_k(x) \, dx \approx \sum_{i=1}^n w_i \cdot p_k(x_i)$
+$\int_a^b p_k(x) \, dx \stackrel{!}{=} \sum_{i=1}^n w_i \cdot p_k(x_i)$ mit $k \in [0,2n-1]$
 
 Bei einem Polynom von Grad $n$ können $n$ Gleichungen aufgestellt werden (z.B. $p_0(x)=1, p_1(x)=x, \dots$). Nun muss man die Stützstellen $x_i$ und die Gewichte $w_i$ bestimmen.
 
@@ -317,7 +319,7 @@ Nähere die Fläche mit Dreiecken an. In jedem Schritt werden neue Dreiecke hinz
 
 Die Kondition ergibt sich als Verhältnis der größten zu der kleinsten Eigenwert der Matrix.
 
-$\kappa(A) = ||A|| \cdot ||A^{-1}|| = \sqrt{\lambda_{max}(A^TA)} \cdot \sqrt{\lambda_{max}(A^{-T} A^{-1})} =\sqrt{\frac{\lambda_{max}(A^TA)}{\lambda_{min}(A^TA)}} \stackrel{\text{A symmetrisch?}}{=} \left|\frac{\lambda_{max}}{\lambda_{min}}\right|$.
+$\kappa(A) = ||A|| \cdot ||A^{-1}|| = \sqrt{\lambda_{max}(A^TA)} \cdot \sqrt{\lambda_{max}(A^{-T} A^{-1})} =\sqrt{\frac{\lambda_{max}(A^TA)}{\lambda_{min}(A^TA)}} \stackrel{\text{A symmetrisch?}}{=} \left|\frac{\lambda_{max}(A)}{\lambda_{min}(A)}\right|$.
 
 ### Residuum
 
@@ -391,7 +393,7 @@ Falls die Steigung immer endlich ist, ist durch die Lipschitzbedingung sicherges
 
 $y_{k+1} = y_k + \delta t \cdot f(t_k, y_k)$
 
-Die Ordnung des Verfahrens ist $1$.
+Die Ordnung des Verfahrens ist $O(\delta t)$.
 
 Dieses Verfahren tendiert dazu der Funktion hinterher zu hinken.
 
@@ -431,6 +433,8 @@ Die Ordnung des Verfahrens ist $O(\delta t^4)$.
 
 $y_{k+1} = y_{k-1} + 2 \delta t \cdot f(t_k, y_k)$
 
+Mehrschrittverfahren
+
 Der Erste Schritt wird hierbei mit dem expliziten Euler-Verfahren berechnet.
 
 #### Lokaler Fehler
@@ -461,6 +465,7 @@ Diferentialgleichung ist steif, wenn der lokale Fehler nur mit sehr kleinen Schr
 Ein Verfahren ist konvergent, wenn der globale Fehler mit kleineren Schritten gegen Null geht.
 
 Bei Einschrittverfahren gilt: $Konsistenz \implies Konvergenz$.
+
 Bei Mehrschrittverfahren gilt: $Konsistenz + Stabilität \iff Konvergenz$.
 
 ## Iterative Gleichungslöser
@@ -471,7 +476,7 @@ $r=A\tilde{x}-b$
 
 $x_{k+1}^{(i+1)} = x_k^{(i)} + r_k^{(i)}$
 
-Oder: $x^{(i+1)}=x+I^{-1}\cdot (b-Ax)$
+Oder: $x^{(i+1)}=x+I\cdot (b-Ax)$
 
 ### Jacobi-Iteration
 
@@ -510,6 +515,20 @@ Konvergiert nach $n$ Schritten zur idealen Lösung. Da in jedem Schritt ein Eint
 3. Wähle den Teilbereich, in dem sich die Nullstelle befindet.
 4. Wiederhole
 
+### Regula Falsi
+
+1. Berechne die Funktionswerte an den Endpunkten $f(a)$ und $f(b)$.
+2. Verbinde die Punkte $(a, f(a))$ und $(b, f(b))$ mit einer Geraden. Berechne den Schnittpunkt mit der x-Achse. Und berechne $f(c)$.
+3. Wähle den Teilbereich, in dem sich die Nullstelle befindet.
+4. Wiederhole
+
+### Sekantenverfahren
+
+1. Starte mit zwei Startwerten $x_0$ und $x_1$.
+2. Berechne die Funktionswerte an den Endpunkten $f(x_0)$ und $f(x_1)$.
+3. Bestimme die Gerade durch die Punkte $(x_0, f(x_0))$ und $(x_1, f(x_1))$. Und finde den Schnittpunkt mit der x-Achse. Und berechne $(x_2,f(x_2))$.
+4. Wiederhole mit Punkten $(x_1, f(x_1))$ und $(x_2, f(x_2))$ ...
+
 ### Newton-Verfahren
 
 $x^{(i+1)} = x^{(i)} - \frac{f(x^{(i)})}{f'(x^{(i)})}$
@@ -532,7 +551,7 @@ $x^{(i+1)} = \frac{A \cdot x^{(i)}}{||A \cdot x^{(i)}||}$
 
 Konvergiert zu einem Eigenvektor mit dem (betragsmäßig) größten Eigenwert.
 
-$O(n^2)$ pro Iteration. Konvergenz Eigenvector: $O(n)$, Konvergenz Eigenwert: $O(n^2)$
+$O(n^2)$ pro Iteration. Konvergenz Eigenvektor: $O(n)$, Konvergenz Eigenwert: $O(n^2)$
 
 Durch Shifting ($A-\mu I$) kann man alle Eigenwerte um $-\mu$ verschieben.
 
@@ -545,7 +564,7 @@ Um alle Eigenwerte iterativ zu berechnen, muss man die Matrix $A$ nach der besti
 Um Einen Speziellen Eigenwert in der nähe von $\mu$ zu bestimmen, wird
 die Power Iteration auf der Matrix $(A-\mu I)^{-1}$ durchgeführt.
 
-Wenn man $(A-\mu I) x^{(k+1)} = x^{(k)}$ durch iterative Gleichungssystem löser auf $x^{(k+1)}%$ umformt muss man die Matrix nicht invertieren.
+Wenn man $(A-\mu I) x^{(k+1)} = x^{(k)}$ durch iterative Gleichungssystem löser auf $x^{(k+1)}%$ umformt muss man die Matrix nicht invertieren. Der Vektor $x$ muss nach jedem Schritt normalisiert werden.
 
 Der Vektor $x$ konvergiert zum Eigenvektor des Eigenwertes in der nähe von $\mu$.
 
