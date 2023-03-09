@@ -90,8 +90,6 @@ Lohnt sich bei wenigen zu bestimmenden Werten.
 
 Eignet sich gut, zusätzliche Stützstellen im Nachhinein zu ergänzen.
 
----
-
 |$x_i$  | $i \diagdown k$ | 0 | 1  | 2 |
 |:----: |:----:|:--------:  |:--------: | :--------:|
 | $x_0$ | 0    | $p_0$     | $p_{0,1}$ | $\bold{\color{green}p_{0,2}=f(x)}$ |
